@@ -15,9 +15,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ghostpost import views
+from .models import GhostPost
 
+admin.site.register(GhostPost)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='homepage'),
     path('GhostAdd/', views.GhostPost_view, name='addghostpage'),
+    path('upvote/<int:id>/', views.upvotes, name='upvote'),
+    path('downvote/<int:id>/', views.downvotes, name='downvote'),
+    path('boasts/', views.sort_is_a_boast, name='boast'),
+    path('roasts/', views.sort_is_a_roast, name='roast'),
+    path('all/', views.sort_all_posts, name='all')
 ]

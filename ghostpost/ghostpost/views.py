@@ -29,3 +29,43 @@ def GhostPost_view(request):
     else:
         form = GhostAdd()
         return render(request, html, {'form': form})
+
+def upvotes(request, id):
+    try:
+        post = GhostPost.objects.get(id=id)
+    except GhostPost.DoesNotExist():
+        return HttpResponseRedirect('/')
+    post.upvotes += 1
+    post.total_votes += 1
+    post.save()
+    return HttpResponseRedirect('/')
+
+
+def downvotes(request, id):
+    try:
+        post = GhostPost.objects.get(id=id)
+    except GhostPost.DoesNotExist():
+        return HttpResponseRedirect('/')
+    post.downvotes += 1
+    post.total_votes -= 1
+    post.save()
+    return HttpResponseRedirect('/')
+
+
+def sort_is_a_boast(request):
+    html = 'index.html'
+    posts = GhostPost.objects.all().filter(
+        is_boast=True).order_by('-post_date')
+    return render(request, html, {'data': posts})
+
+
+def sort_is_a_roast(request):
+    html = 'index.html'
+    posts = GhostPost.objects.all().filter(
+        is_boast=False).order_by('-post_date')
+    return render(request, html, {'data': posts})
+
+
+def sort_all_posts(request):
+    posts = GhostPost.objects.order_by('-total_votes')
+    return render(request, 'index.html', {'data': posts})

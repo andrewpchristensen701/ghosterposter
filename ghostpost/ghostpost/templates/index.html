@@ -1,16 +1,21 @@
   
 <h1>I'm going ghost</h1>
 
-<ol>
-    {% for foo in data %}
-        <li>{{ foo.title }}{{ foo.body }}</a></li>
-        <ul>
-            <li>{{ foo.is_boast }}</li>
-        </ul>
-        <br>
-    {% endfor %}
-        <hr>
+<a href="/">All GhostPost</a> <br>
+<a href="/boasts/">Boasts</a><br>
+<a href="/roasts/">Roasts</a><br>
+<a href="/all/">Sort by Votes</a><br><br>
+<a href="/GhostAdd/">Add your own broast</a><br><br>
 
-        <a style ="border: 1px solid black; padding: 2px;" href="/GhostAdd/">boastORroast</a>
-   
-</ol>
+
+{% for foo in data %}
+    <ul>
+    {% if foo.is_boast %}<h4>Boast:</h4><p>{{foo.post}}</p>
+    {% else %} <h4>Roast:</h4><p>{{foo.post}}</p>
+    {% endif %} 
+    <button><a href='/upvote/{{foo.id}}/'>Upvotes: {{foo.upvotes}}</a></button>
+    <button><a href='/downvote/{{foo.id}}/'>Downvotes: {{foo.downvotes}}</a></button>
+    <p>Votes:{{foo.total_votes}}</p>
+    <p>{{foo.submission_time}}</p>
+    </ul> 
+{% endfor %}

@@ -1,4 +1,4 @@
-#!/Users/princelowell/Documents/KenzieQ4/gpost/.venv/bin/python
+#!/Users/princelowell/docs/KenzieQ4/gpost/.venv/bin/python
 
 import sys
 import getopt
